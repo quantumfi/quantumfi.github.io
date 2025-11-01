@@ -1,7 +1,7 @@
 /project-root
  ├── index.html
  
- ├── autors.html
+ ├── authors.html
  
  │    ├── Fernando.html
  

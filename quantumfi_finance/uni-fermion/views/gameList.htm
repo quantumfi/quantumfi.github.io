@@ -1,0 +1,34 @@
+<div class="container">
+<div class="row">
+	<img src="img/logo.png" class="center-block text-center" title="Minority Game" alt="Minority Game">
+</div>
+<div class="row">
+	<h1 class="center-block text-center">Choose Game</h1>
+	<a href="createGame" class="center-block text-center btn btn-lg btn-info">Create Game</a>
+</div>
+<div class="row">
+	<REPEAT group="{{@results}}" value="{{@val}}">
+	
+	<CHECK if="{{@val.numOfPlayers > @val.currJoin}}">
+	<TRUE>
+	<div class="col-lg-4 thumbnail">
+		<p class="row"><label class="text-success col-xs-6 col-lg-6 text-right">Game Id: </label> <span class="col-xs-6 col-lg-6 text-success">{{@val.id}}</span></p>
+		<p class="row"><label class="text-muted col-xs-6 col-lg-6 text-right">Price per share: </label> <span class="col-xs-6 col-lg-6">${{@val.pricePerShare}}</span></p>
+		<p class="row"><label class="text-muted col-xs-6 col-lg-6 text-right">Total Players: </label> <span class="col-xs-6 col-lg-6"> {{@val.numOfPlayers}}</span></p>
+		<p class="row"><label class="text-muted col-xs-6 col-lg-6 text-right">Current Total Join: </label> <span class="col-xs-6 col-lg-6"> {{@val.currJoin}}</span></p>
+		<p class="row"><label class="text-muted col-xs-6 col-lg-6 text-right">Created By: </label> <span class="col-xs-6 col-lg-6"> {{@val.createdBy}}</span></p>
+		<p class="row"><label class="text-muted col-xs-6 col-lg-6 text-right">Created Date: </label> <span class="col-xs-6 col-lg-6"> {{@val.created}}</span></p>
+		<form action="gameList" method="post" class="row text-center">
+			<input type="hidden" name="gameId" value="{{@val.id}}">
+			<input type="hidden" name="totalRound" value="{{@val.totalRound}}">
+			<input type="hidden" name="numOfPlayers" value="{{@val.numOfPlayers}}">
+			<input type="hidden" name="pricePerShare" value="{{@val.pricePerShare}}">
+			<input type="hidden" name="noises" value="{{@val.noises}}">
+			<button class="btn btn-primary" id="send">Join</button>
+		</form>
+	</div>
+	</TRUE>
+	</CHECK>
+	</REPEAT>
+</div>
+</div>

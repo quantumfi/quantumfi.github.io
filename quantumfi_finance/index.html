@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>QuantumFi Finance Observatory</title>
+    <meta name="description" content="QuantumFi Finance Observatory static landing page.">
+    <style>
+      :root {
+        --ink: #111827;
+        --muted: #4b5563;
+        --line: #d9dee7;
+        --teal: #14a7a0;
+        --gold: #d89d18;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: #ffffff;
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.55;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 22px 42px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 24px;
+        font-weight: 800;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 44px;
+        height: 44px;
+        place-items: center;
+        background: var(--ink);
+        color: white;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 32px;
+      }
+
+      main {
+        display: grid;
+        grid-template-columns: 1fr 0.8fr;
+        gap: 64px;
+        align-items: center;
+        min-height: calc(100vh - 89px);
+        padding: 70px 42px;
+      }
+
+      .kicker {
+        margin: 0 0 14px;
+        color: var(--teal);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 780px;
+        margin: 0 0 24px;
+        font-size: clamp(42px, 7vw, 84px);
+        line-height: 0.98;
+      }
+
+      p {
+        max-width: 680px;
+        color: var(--muted);
+        font-size: 20px;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 28px;
+      }
+
+      .button {
+        display: inline-flex;
+        padding: 14px 20px;
+        background: var(--ink);
+        color: white;
+        font-weight: 800;
+      }
+
+      .secondary {
+        background: white;
+        color: var(--ink);
+        border: 1px solid var(--line);
+      }
+
+      .visual {
+        display: grid;
+        place-items: center;
+      }
+
+      .visual img {
+        width: min(360px, 80vw);
+        filter: drop-shadow(0 24px 34px rgba(17, 24, 39, 0.16));
+      }
+
+      .note {
+        margin-top: 18px;
+        font-size: 14px;
+      }
+
+      @media (max-width: 820px) {
+        header,
+        main {
+          padding-right: 20px;
+          padding-left: 20px;
+        }
+
+        main {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="../index.html">
+        <span class="brand-mark">&Phi;</span>
+        <span>QuantumFi</span>
+      </a>
+      <a class="button secondary" href="../index.html">Back to Main Site</a>
+    </header>
+
+    <main>
+      <section>
+        <p class="kicker">Finance Observatory</p>
+        <h1>Static finance observatory and market simulation lab.</h1>
+        <p>
+          The original Uni-Fermion project is a PHP application with server routes, sessions, database tables, and WebSocket behavior. This page provides a GitHub Pages-friendly entry point.
+        </p>
+        <div class="actions">
+          <a class="button" href="finance-lite.html">Open Finance Lite</a>
+          <a class="button secondary" href="../index.html#finance">Return to QuantumFi</a>
+        </div>
+        <p class="note">For the full original app, deploy the PHP project on a PHP-capable server.</p>
+      </section>
+
+      <div class="visual">
+        <img src="../img/lupa.png" alt="Finance Observatory logo">
+      </div>
+    </main>
+  </body>
+</html>

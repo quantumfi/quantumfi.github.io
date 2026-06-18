@@ -1,0 +1,114 @@
+<div class="row">
+	<h1 class="center-block text-center">Minority Game  
+		<CHECK if="{{isset(@isFinal)}}">
+		<TRUE>
+			<span id="roundNo">END</span>
+		</TRUE>
+		<FALSE>	
+			<span id="roundNo">Round {{@SESSION.roundNo}}</span>
+		</FALSE>
+		</CHECK>
+	
+	</h1>
+</div>
+<div class="row">
+	<div class="col-lg-offset-4 col-lg-4 jumbotron">
+		<label>Price per share: </label><input type="number" class="form-control" name="price" disabled="" value="{{@SESSION.pricePerShare}}"/>
+		<label>$ X: </label><input type="number" class="form-control" name="x" disabled="" value="1"/>
+		<!--button class="btn btn-primary" id="send">Send</button-->
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12 col-md-4 col-md-offset-4 col-lg-offset-4 col-lg-4 well" id="player1">
+		<h2 class="text-center">{{@SESSION.user}}</h2>
+		<div class="center-block text-center">
+			<a class="btn btn-lg btn-success {{@disabled}}" id="buy">Buy</a>
+			<a class="btn btn-lg btn-danger {{@disabled}}" id="sell">Sell</a>
+		</div>
+		<!--label>Cash: </label><input type="number" class="form-control" name="cash"/>
+		<label>Shares: </label><input type="number" class="form-control" name="shares" disabled=""/>
+		<label>Capital: </label><input type="number" class="form-control" name="capital" disabled=""/>
+		<label>Rank: </label><input type="number" class="form-control" name="rank" disabled=""/-->
+	</div>
+</div>
+<script>
+$(function() {
+    var xhr=(function fetch() {
+        $.ajax({
+            url:'/minority-game/gameData',
+            type:'GET',
+            success:function(data){
+				 obj = JSON.parse(data);
+				console.log(obj.pricePerShare);
+				if (obj.pricePerShare > 0){
+					console.log(obj);
+					
+					if (obj.isFinal == 'true'){
+						$('#roundNo').html('END');
+						
+					}else{
+						
+						$('#roundNo').html('Round ' + obj.roundNo);
+						$('#buy, #sell').removeClass('disabled');
+					}
+				
+					$('input[name=price]').val(obj.pricePerShare);
+				}
+				if (obj.isFinal != 'true'){
+				  fetch();
+				}
+			}
+        });
+    })();
+	
+    $(window).on('beforeunload',function() {
+        xhr.abort();
+    });
+	
+});
+
+$('#buy').bind('click', function(){
+	submitAction('1');
+});
+
+$('#sell').bind('click', function(){
+	submitAction('-1');
+});
+
+function submitAction(actionType){
+
+	var mergedJson = JSON.stringify({
+		action: actionType,
+	});
+
+	console.log(mergedJson);
+	$.post(
+		'/minority-game/saveUserGame',
+		mergedJson,
+		successSubmitAction,
+		'json'
+	);
+}
+
+function successSubmitAction(data){
+	console.log(data);
+	alert(data[1]);
+	$('#buy, #sell').addClass('disabled');
+}
+
+function successGetGameData(data){
+	if (data.pricePerShare > 0){
+		console.log(data);
+		$('input[name=price]').val(data.pricePerShare);
+		$('#roundNo').html(data.roundNo);
+		$('#buy, #sell').removeClass('disabled');
+	}
+	fetch();
+}
+
+/*$.ajax({
+	url:'/minority-game/gameData',
+	type:'GET',
+	success:successGetGameData
+});*/
+</script>

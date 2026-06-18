@@ -1,0 +1,785 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Finance Lite | QuantumFi</title>
+    <meta name="description" content="Static lite finance simulator for GitHub Pages.">
+    <style>
+      :root {
+        --ink: #111827;
+        --muted: #4b5563;
+        --line: #d9dee7;
+        --soft: #f5f7fa;
+        --green: #14845c;
+        --red: #b91c1c;
+        --gold: #d89d18;
+        --teal: #14a7a0;
+        --blue: #1f5f8f;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: #ffffff;
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.55;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 34px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.96);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 23px;
+        font-weight: 800;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 44px;
+        height: 44px;
+        place-items: center;
+        background: var(--ink);
+        color: white;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 32px;
+      }
+
+      nav {
+        display: flex;
+        gap: 18px;
+        font-weight: 800;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 0.9fr;
+        min-height: 560px;
+      }
+
+      .hero-copy {
+        padding: 82px 42px;
+      }
+
+      .hero-visual {
+        display: grid;
+        place-items: center;
+        background:
+          linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.62)),
+          radial-gradient(circle at 35% 30%, rgba(20, 167, 160, 0.2), transparent 34%),
+          #f6fbfb;
+      }
+
+      .hero-visual img {
+        width: min(360px, 80vw);
+        filter: drop-shadow(0 24px 34px rgba(17, 24, 39, 0.16));
+      }
+
+      .kicker {
+        margin: 0 0 14px;
+        color: var(--teal);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin-bottom: 24px;
+        font-size: clamp(44px, 7vw, 82px);
+        line-height: 0.98;
+      }
+
+      h2 {
+        margin-bottom: 24px;
+        font-size: clamp(32px, 4vw, 54px);
+        line-height: 1.06;
+      }
+
+      h3 {
+        margin-bottom: 10px;
+        font-size: 24px;
+      }
+
+      p {
+        color: var(--muted);
+      }
+
+      .hero-copy > p {
+        max-width: 640px;
+        font-size: 20px;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 28px;
+      }
+
+      .button,
+      button {
+        display: inline-flex;
+        border: 0;
+        padding: 13px 18px;
+        background: var(--ink);
+        color: white;
+        cursor: pointer;
+        font: inherit;
+        font-weight: 800;
+      }
+
+      .secondary {
+        background: white;
+        color: var(--ink);
+        border: 1px solid var(--line);
+      }
+
+      .buy {
+        background: var(--green);
+      }
+
+      .sell {
+        background: var(--red);
+      }
+
+      .hold {
+        background: var(--gold);
+        color: var(--ink);
+      }
+
+      section {
+        padding: 72px 42px;
+      }
+
+      .simulator {
+        background: var(--soft);
+      }
+
+      .panel-grid {
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        gap: 28px;
+      }
+
+      .panel,
+      .metric,
+      .history {
+        border: 1px solid var(--line);
+        background: white;
+      }
+
+      .panel {
+        padding: 24px;
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 14px;
+        margin-bottom: 24px;
+      }
+
+      .metric {
+        padding: 18px;
+      }
+
+      .metric span {
+        display: block;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .metric strong {
+        display: block;
+        margin-top: 8px;
+        font-size: 28px;
+      }
+
+      .chart {
+        width: 100%;
+        height: 320px;
+        border: 1px solid var(--line);
+        background:
+          linear-gradient(#eef2f6 1px, transparent 1px),
+          linear-gradient(90deg, #eef2f6 1px, transparent 1px),
+          white;
+        background-size: 42px 42px;
+      }
+
+      .chart-wrap {
+        position: relative;
+      }
+
+      .axis-label {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .trade-box {
+        display: grid;
+        gap: 16px;
+      }
+
+      label {
+        display: grid;
+        gap: 7px;
+        color: var(--muted);
+        font-weight: 800;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid var(--line);
+        font: inherit;
+      }
+
+      .trade-actions {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 24px;
+        background: white;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        border: 1px solid var(--line);
+        text-align: left;
+      }
+
+      th {
+        background: #f8fafb;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+
+      .agent-list {
+        display: grid;
+        gap: 8px;
+      }
+
+      .agent-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+      }
+
+      .agent-row strong {
+        color: var(--ink);
+      }
+
+      .features article {
+        border-top: 4px solid var(--ink);
+        padding-top: 18px;
+      }
+
+      .note {
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      footer {
+        padding: 34px 42px;
+        background: var(--ink);
+        color: white;
+      }
+
+      footer p {
+        color: #cbd5e1;
+      }
+
+      @media (max-width: 940px) {
+        header {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 14px;
+        }
+
+        .hero,
+        .panel-grid,
+        .metrics,
+        .features {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-copy,
+        section,
+        footer {
+          padding-right: 20px;
+          padding-left: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="../index.html">
+        <span class="brand-mark">&Phi;</span>
+        <span>Finance Lite</span>
+      </a>
+      <nav>
+        <a href="#simulator">Simulator</a>
+        <a href="#features">Features</a>
+        <a href="index.html">Finance Home</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="kicker">QuantumFi Finance Observatory</p>
+          <h1>Browser-only market simulation preview.</h1>
+          <p>
+            A static lite version inspired by the Uni-Fermion stock/minority-game interface. You play against randomly generated agents in your browser.
+          </p>
+          <div class="actions">
+            <a class="button" href="#simulator">Open Simulator</a>
+            <a class="button secondary" href="uni-fermion/views/index.htm">View Original View</a>
+          </div>
+          <p class="note">The original PHP app requires a server for accounts, sessions, games, and stored results.</p>
+        </div>
+        <div class="hero-visual">
+          <img src="../img/lupa.png" alt="Finance Observatory logo">
+        </div>
+      </section>
+
+      <section class="simulator" id="simulator">
+        <div class="metrics">
+          <div class="metric">
+            <span>Price</span>
+            <strong id="priceMetric">$0.30</strong>
+          </div>
+          <div class="metric">
+            <span>Cash</span>
+            <strong id="cashMetric">$100</strong>
+          </div>
+          <div class="metric">
+            <span>Shares</span>
+            <strong id="sharesMetric">30</strong>
+          </div>
+          <div class="metric">
+            <span>Capital</span>
+            <strong id="capitalMetric">$109</strong>
+          </div>
+          <div class="metric">
+            <span>Round</span>
+            <strong id="roundMetric">0</strong>
+          </div>
+          <div class="metric">
+            <span>Attendance</span>
+            <strong id="attendanceMetric">0</strong>
+          </div>
+        </div>
+
+        <div class="panel-grid">
+          <div class="panel">
+            <h2>Price Versus Time</h2>
+            <div class="chart-wrap">
+              <canvas class="chart" id="priceChart" width="900" height="320" aria-label="Price versus time chart"></canvas>
+              <div class="axis-label">
+                <span>Price per share</span>
+                <span>Round / time</span>
+              </div>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Round</th>
+                  <th>Action</th>
+                  <th>Attendance</th>
+                  <th>Minority</th>
+                  <th>Price</th>
+                  <th>Cash</th>
+                  <th>Shares</th>
+                  <th>Capital</th>
+                </tr>
+              </thead>
+              <tbody id="historyBody"></tbody>
+            </table>
+          </div>
+
+          <aside class="panel trade-box">
+            <h3>Trading Action</h3>
+            <label>
+              Trade Size
+              <input id="tradeSize" type="number" min="1" value="10">
+            </label>
+            <label>
+              Simulated Players
+              <input id="playerCount" type="number" min="3" max="51" value="9">
+            </label>
+            <div class="trade-actions">
+              <button class="buy" type="button" data-action="buy">Buy</button>
+              <button class="hold" type="button" data-action="hold">Hold</button>
+              <button class="sell" type="button" data-action="sell">Sell</button>
+            </div>
+            <button class="secondary" type="button" id="runAuto">Run 30 Rounds</button>
+            <button class="secondary" type="button" id="resetSim">Reset</button>
+            <div>
+              <h3>Agents</h3>
+              <div class="agent-list" id="agentList"></div>
+            </div>
+            <p class="note">Price follows the live Uni-Fermion idea: attendance is buyers minus sellers, and price changes over rounds.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="features">
+        <p class="kicker">Lite Features</p>
+        <h2>Static preview of the finance experiment.</h2>
+        <div class="features">
+          <article>
+            <h3>Market Signal</h3>
+            <p>Observe price as a time series generated by round-by-round market attendance.</p>
+          </article>
+          <article>
+            <h3>Player State</h3>
+            <p>Track cash, shares, and capital as your actions interact with a random agent population.</p>
+          </article>
+          <article>
+            <h3>GitHub Pages Ready</h3>
+            <p>Runs as a single static HTML page with no PHP, database, or WebSocket dependency.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <h2>QuantumFi Finance Observatory</h2>
+      <p>Static Finance Lite preview for GitHub Pages.</p>
+    </footer>
+
+    <script>
+      const state = {
+        round: 0,
+        price: 0.3,
+        cash: 100,
+        shares: 30,
+        attendance: 0,
+        minority: "Hold",
+        agents: [],
+        history: []
+      };
+
+      const priceMetric = document.getElementById("priceMetric");
+      const cashMetric = document.getElementById("cashMetric");
+      const sharesMetric = document.getElementById("sharesMetric");
+      const capitalMetric = document.getElementById("capitalMetric");
+      const roundMetric = document.getElementById("roundMetric");
+      const attendanceMetric = document.getElementById("attendanceMetric");
+      const historyBody = document.getElementById("historyBody");
+      const chart = document.getElementById("priceChart");
+      const context = chart.getContext("2d");
+      const initialState = {
+        round: 0,
+        price: 0.3,
+        cash: 100,
+        shares: 30,
+        attendance: 0,
+        minority: "Hold"
+      };
+
+      const agentNames = ["Aster", "Boreal", "Cygnus", "Delta", "Echo", "Flux", "Gamma", "Helix", "Ion", "Juno", "Kappa", "Lyra"];
+      const strategies = ["trend", "contrarian", "random", "cautious"];
+      const agentList = document.getElementById("agentList");
+
+      function money(value) {
+        return `$${value.toFixed(2)}`;
+      }
+
+      function capital() {
+        return state.cash + state.shares * state.price;
+      }
+
+      function updateMetrics() {
+        priceMetric.textContent = money(state.price);
+        cashMetric.textContent = money(state.cash);
+        sharesMetric.textContent = state.shares.toFixed(2);
+        capitalMetric.textContent = money(capital());
+        roundMetric.textContent = state.round;
+        attendanceMetric.textContent = state.attendance;
+      }
+
+      function createAgents() {
+        const totalPlayers = Math.max(3, Number(document.getElementById("playerCount").value || 9));
+        state.agents = [];
+
+        for (let i = 1; i < totalPlayers; i += 1) {
+          state.agents.push({
+            name: agentNames[(i - 1) % agentNames.length],
+            strategy: strategies[Math.floor(Math.random() * strategies.length)],
+            bias: Math.random() * 2 - 1,
+            lastAction: "Hold"
+          });
+        }
+
+        renderAgents();
+      }
+
+      function renderAgents() {
+        agentList.innerHTML = state.agents.map((agent) => `
+          <div class="agent-row">
+            <span>${agent.name} <small>${agent.strategy}</small></span>
+            <strong>${agent.lastAction}</strong>
+          </div>
+        `).join("");
+      }
+
+      function addHistory(action, attendance = 0, minority = "Hold") {
+        state.history.unshift({
+          round: state.round,
+          action,
+          attendance,
+          minority,
+          price: state.price,
+          cash: state.cash,
+          shares: state.shares,
+          capital: capital()
+        });
+
+        historyBody.innerHTML = state.history.map((item) => `
+          <tr>
+            <td>${item.round}</td>
+            <td>${item.action}</td>
+            <td>${item.attendance}</td>
+            <td>${item.minority}</td>
+            <td>${money(item.price)}</td>
+            <td>${money(item.cash)}</td>
+            <td>${item.shares.toFixed(2)}</td>
+            <td>${money(item.capital)}</td>
+          </tr>
+        `).join("");
+      }
+
+      function drawChart() {
+        const points = state.history.slice().reverse();
+        context.clearRect(0, 0, chart.width, chart.height);
+        context.fillStyle = "#ffffff";
+        context.fillRect(0, 0, chart.width, chart.height);
+        context.strokeStyle = "#d9dee7";
+        context.lineWidth = 1;
+
+        for (let x = 0; x <= chart.width; x += 75) {
+          context.beginPath();
+          context.moveTo(x, 0);
+          context.lineTo(x, chart.height);
+          context.stroke();
+        }
+
+        for (let y = 0; y <= chart.height; y += 40) {
+          context.beginPath();
+          context.moveTo(0, y);
+          context.lineTo(chart.width, y);
+          context.stroke();
+        }
+
+        if (!points.length) return;
+
+        const prices = points.map((point) => point.price);
+        const min = Math.min(...prices) * 0.92;
+        const max = Math.max(...prices) * 1.08;
+        const span = Math.max(max - min, 0.1);
+
+        context.fillStyle = "#4b5563";
+        context.font = "16px Arial";
+        context.fillText("Price", 18, 24);
+        context.fillText("Time", chart.width - 58, chart.height - 14);
+
+        context.strokeStyle = "#14a7a0";
+        context.lineWidth = 5;
+        context.beginPath();
+
+        points.forEach((point, index) => {
+          const x = points.length === 1 ? 30 : 30 + index * ((chart.width - 60) / (points.length - 1));
+          const y = chart.height - 30 - ((point.price - min) / span) * (chart.height - 60);
+
+          if (index === 0) context.moveTo(x, y);
+          else context.lineTo(x, y);
+        });
+
+        context.stroke();
+
+        points.forEach((point, index) => {
+          const x = points.length === 1 ? 30 : 30 + index * ((chart.width - 60) / (points.length - 1));
+          const y = chart.height - 30 - ((point.price - min) / span) * (chart.height - 60);
+          context.fillStyle = "#111827";
+          context.beginPath();
+          context.arc(x, y, 4, 0, Math.PI * 2);
+          context.fill();
+        });
+      }
+
+      function actionToValue(action) {
+        if (action === "buy") return 1;
+        if (action === "sell") return -1;
+        return 0;
+      }
+
+      function valueToAction(value) {
+        if (value > 0) return "Buy";
+        if (value < 0) return "Sell";
+        return "Hold";
+      }
+
+      function agentAction(agent, previousMove) {
+        const noise = Math.random() * 2 - 1;
+        const trend = state.history.length > 1
+          ? state.history[0].price - state.history[Math.min(1, state.history.length - 1)].price
+          : 0;
+
+        if (agent.strategy === "trend") {
+          if (trend > 0.002) return 1;
+          if (trend < -0.002) return -1;
+        }
+
+        if (agent.strategy === "contrarian") {
+          if (previousMove > 0) return -1;
+          if (previousMove < 0) return 1;
+        }
+
+        if (agent.strategy === "cautious" && Math.abs(noise + agent.bias * 0.3) < 0.55) {
+          return 0;
+        }
+
+        return noise + agent.bias * 0.35 > 0.25 ? 1 : noise + agent.bias * 0.35 < -0.25 ? -1 : 0;
+      }
+
+      function simulatedAttendance(userAction) {
+        if (!state.agents.length) createAgents();
+        let attendance = userAction;
+        const previousMove = state.history.length > 1
+          ? Math.sign(state.history[0].price - state.history[1].price)
+          : 0;
+
+        state.agents.forEach((agent) => {
+          const action = agentAction(agent, previousMove);
+          agent.lastAction = valueToAction(action);
+          attendance += action;
+        });
+
+        renderAgents();
+
+        return { attendance, totalPlayers: state.agents.length + 1 };
+      }
+
+      function updatePriceFromAttendance(attendance, totalPlayers) {
+        const exponent = attendance / Math.max(state.price * totalPlayers, 0.0001);
+        state.price *= Math.exp(exponent);
+        state.price = Math.min(Math.max(state.price, 0.03), 20);
+      }
+
+      function trade(action) {
+        const tradeSize = Number(document.getElementById("tradeSize").value || 10);
+        const currentPrice = state.price;
+        const actionValue = actionToValue(action);
+        const { attendance, totalPlayers } = simulatedAttendance(actionValue);
+        const minorityValue = attendance > 0 ? -1 : attendance < 0 ? 1 : 0;
+        const minority = valueToAction(minorityValue);
+
+        state.round += 1;
+
+        if (action === "buy") {
+          const cost = Math.min(tradeSize, state.cash);
+          state.cash -= cost;
+          state.shares += cost / currentPrice;
+        }
+
+        if (action === "sell") {
+          const sharesToSell = Math.min(tradeSize / currentPrice, state.shares);
+          state.shares -= sharesToSell;
+          state.cash += sharesToSell * currentPrice;
+        }
+
+        updatePriceFromAttendance(attendance, totalPlayers);
+        state.attendance = attendance;
+        state.minority = minority;
+        addHistory(action, attendance, minority);
+        updateMetrics();
+        drawChart();
+      }
+
+      function autoRun() {
+        for (let i = 0; i < 30; i += 1) {
+          const cycle = Math.sin((state.round + i + 1) * 0.7);
+          const action = cycle > 0.35 ? "buy" : cycle < -0.35 ? "sell" : "hold";
+          trade(action);
+        }
+      }
+
+      function resetSim() {
+        Object.assign(state, initialState);
+        state.agents = [];
+        state.history = [];
+        createAgents();
+        addHistory("start", 0, "Hold");
+        updateMetrics();
+        drawChart();
+      }
+
+      document.querySelectorAll("[data-action]").forEach((button) => {
+        button.addEventListener("click", () => trade(button.dataset.action));
+      });
+
+      document.getElementById("runAuto").addEventListener("click", autoRun);
+      document.getElementById("resetSim").addEventListener("click", resetSim);
+
+      document.getElementById("playerCount").addEventListener("change", resetSim);
+
+      createAgents();
+      addHistory("start", 0, "Hold");
+      updateMetrics();
+      drawChart();
+    </script>
+  </body>
+</html>

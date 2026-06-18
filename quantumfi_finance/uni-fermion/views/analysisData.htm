@@ -1,0 +1,30 @@
+<div class="row">
+	<div class="col-lg-12 text-center"><h1>Graph Analysis</h1></div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+	<label>Game ID :</label> <span id="gameId">{{@PARAMS.gameId}}</span>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-6 well">
+		<label>Price</label>
+		<canvas id="chart-area1" width="500" height="300" class="center-block"></canvas>
+		<label class="text-center center-block">Round</label>
+	</div>
+	<div class="col-lg-6 well">
+		<label>Capital</label>
+		<label class="navbar-right">Minority Count</label>
+		<canvas id="chart-area2" width="500" height="300" class="center-block"></canvas>
+		<label class="text-center center-block">Player</label>
+	</div>
+</div>
+<script src="//quantumfi.com.au/shared/Chart-modified.min.js"></script>
+<script src="//quantumfi.com.au/views/js/clientGraph.js"></script>
+<script>
+$(function() {
+$id=$('#gameId').html();
+QF.drawFromUrl('priceRound/'+$id, 'chart-area1');
+QF.drawFromUrl('capitalMCountPlayer/'+$id, 'chart-area2');
+});
+</script>

@@ -1,0 +1,34 @@
+# Enable rewrite engine and route requests to framework
+RewriteEngine On
+
+Header add Access-Control-Allow-Origin "*"
+Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
+
+# Some servers require you to specify the `RewriteBase` directive
+# In such cases, it should be the path (relative to the document root)
+# containing this .htaccess file
+#
+RewriteBase /
+
+#RewriteCond %{REQUEST_URI} \.ini$
+#RewriteRule \.ini$ - [R=404]
+
+#RewriteCond %{REQUEST_URI} \.html?$
+#RewriteRule \.html?$ - [R=404]
+
+# Blocking access from libwww-perl you can eliminate many simpler attacks
+# RewriteCond %{HTTP_USER_AGENT} libwww-perl.* 
+# RewriteRule .* – [F,L]
+
+# Resolve www
+RewriteCond %{HTTP_HOST} ^www\.
+RewriteRule ^(.*) "http\:\/\/%{HTTP_HOST}\/$1" [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule .* index.php [L,QSA,E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteRule .* index.php [L,QSA]
+
+
+Options -Indexes

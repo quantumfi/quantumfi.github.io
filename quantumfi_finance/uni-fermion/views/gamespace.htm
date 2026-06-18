@@ -1,0 +1,184 @@
+
+<div class="container" id="gameBody">
+<div class="row">
+	<div class="text-center text-muted">
+	
+	<h2 class="text-center" id="usernameId">{{@SESSION.user}}</h2>
+	<label>Game ID :</label> <span id="gameId" class="text-info">{{@SESSION.gameId}}</span>
+	<!--label>Total Joined :</label> <span id="totalJoined" class="text-info">{{@totalJoined}}</span-->
+	<label>Round :</label> 
+	<span id="totalJoined">
+		<span id="roundNo" class="text-info"> 
+		<CHECK if="{{isset(@isFinal)}}">
+		<TRUE>
+			END
+		</TRUE>
+		<FALSE>	
+			[waiting...]
+		</FALSE>
+		</CHECK>
+		</span>
+	</span>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-6 well">
+		<label>Price</label>
+		<canvas id="chartarea1" width="500" height="300" class="center-block"></canvas>
+		<label class="text-center center-block">Round</label>
+	</div>
+	<div class="col-lg-3" id="unJoinedAlert">
+		<div class="col-lg-12">
+			<h2>Waiting for <span id="totalUnJoined"></span> player/s to join the game.</h2>
+				
+			<div id="loadingImgId" class="progress progress-striped active">
+			  <div class="progress-bar" style="width: 65%"></div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3 hide" id="actionColumn">
+		<div class="col-lg-12">
+			<label>Price per share: </label><input type="number" class="form-control" name="price" disabled="" value="{{round(@SESSION.pricePerShare, 2)}}"/>
+			<CHECK if="{{isset(@SESSION.x)}}">
+			<true>
+			<label>$ X: </label><input type="number" class="form-control" name="x" disabled="" value="{{round(@SESSION.x, 2)}}"/>
+			</true>
+			<false>
+			<label>$ X: </label><input type="number" class="form-control" name="x" disabled="" value="1"/>
+			</false>
+			</CHECK>
+			<!--button class="btn btn-primary" id="send">Send</button-->
+		</div>
+		<div class="col-sm-12 col-md-12 col-lg-12" id="player1">
+			<div class="center-block text-center well">
+				<a class="btn btn-lg btn-success {{@disabled}}" id="buy">Buy</a>
+				<a class="btn btn-lg btn-warning {{@disabled}}" id="hold">Hold</a>
+				<a class="btn btn-lg btn-danger {{@disabled}}" id="sell">Sell</a>
+			</div>
+			<!--label>Cash: </label><input type="number" class="form-control" name="cash"/>
+			<label>Shares: </label><input type="number" class="form-control" name="shares" disabled=""/>
+			<label>Capital: </label><input type="number" class="form-control" name="capital" disabled=""/>
+			<label>Rank: </label><input type="number" class="form-control" name="rank" disabled=""/-->
+		</div>
+		<div class="col-lg-12">
+			<div class="center-block text-center"><br/>
+				<CHECK if="{{isset(@isFinal)}}">
+				<TRUE>
+					<a class="btn btn-lg btn-primary col-lg-6" href="rank" id="rankResult" target="_blank">Ranking Result</a>
+					<a class="btn btn-lg btn-default col-lg-6" href="raw/{{@SESSION.gameId}}" id="rawResult" target="_blank">Raw Result</a>
+				</TRUE>
+				<FALSE>	
+					<a class="btn btn-lg btn-primary col-lg-6 hide" href="rank" id="rankResult" target="_blank">Ranking Result</a>
+					<a class="btn btn-lg btn-default col-lg-6 hide" href="raw/{{@SESSION.gameId}}" id="rawResult" target="_blank">Raw Result</a>
+				</FALSE>
+				</CHECK>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-lg-3" id="waitingListColumn">
+		<h3>Waiting For</h3>
+		<div id="loadingImgId" class="progress progress-striped active hide">
+		  <div class="progress-bar" style="width: 45%"></div>
+		</div>
+		<div id="unSubmittedPlayersDummy" class="col-xs-6 col-lg-4 label label-info"></div>
+		<div id="submittedPlayers" class="col-sm-6- col-lg-12-">
+			<!--div class="progress progress-striped active">
+			  <div class="progress-bar" style="width: 45%"></div>
+			</div-->
+			<REPEAT group="{{@unSubmittedPlayers}}" value="{{@val}}">
+				<div id="{{@val}}" class="col-xs-6 col-lg-4 label label-info">{{@val}}</div>
+			</REPEAT>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+	<table class="table table-striped table-hover well" id="historyTbl">
+	  <thead>
+		<tr>
+		  <th>Round</th>
+		  <th>Minority Action</th>
+		  <th>Your Action</th>
+		  <th>Price</th>
+		  <th>Cash</th>
+		  <th>Shares</th>
+		  <th>Capital</th>
+		  <th>Minority Count</th>
+		</tr>
+		<tr class="dummyRow hide">
+		  <td class="rn"></td>
+		  <td class="ma"></td>
+		  <td class="ya"></td>
+		  <td class="pr"></td>
+		  <td class="ch"></td>
+		  <td class="sh"></td>
+		  <td class="cl"></td>
+		  <td class="mc"></td>
+		</tr>
+	  </thead>
+	  <tbody>
+		<CHECK if="{{isset(@history)}}">
+		<repeat group="{{@history}}" value="{{@val}}">
+		<tr class="">
+		  <td class="rn">{{@val.roundNo}}</td>
+		  <td class="ma">{{@val.minorityAction}}</td>
+		  <td class="ya">{{@val.action}}</td>
+		  <td class="pr">{{@val.pricePerShare}}</td>
+		  <td class="ch">{{@val.cash}}</td>
+		  <td class="sh">{{@val.shares}}</td>
+		  <td class="cl">{{@val.capital}}</td>
+		  <td class="mc">{{@val.countAct}}</td>
+		</tr>
+		</repeat>
+		</CHECK>
+	  </tbody>
+	</table> 
+  </div>
+</div>
+</div>
+
+<div class="container-fluid" id="progressBar">
+	<div class="progress progress-striped active">
+	  <div class="progress-bar" style="width: 75%"></div>
+	</div>
+</div>
+
+<footer class="navbar-default">
+<div class="container">
+<div class="row">
+  <div class="col-lg-12 text-muted"><br/>
+	<p>Made by <a href="//quantumfi.net" rel="nofollow">Quantumfi @ sydney.edu.au 2015</a> 
+		<span class="pull-right"><a href="#top"><span class="glyphicon glyphicon-arrow-up"></span> Back to top</a></span>
+	</p>
+  </div><br/><br/>
+</div>
+</div>
+</footer>
+
+<script src="//quantumfi.net/shared/Chart-modified.min.js"></script>
+<script src="//quantumfi.net/views/js/clientGraph.js"></script>
+<!--script src="views/js/main.js"></script-->
+<script>
+$(function() {
+function loadjscssfile(filename, filetype){
+	filename = filename + ('?' + (new Date()).getMilliseconds());
+
+    if (filetype=="js"){ //if filename is a external JavaScript file
+        var fileref=document.createElement('script')
+        fileref.setAttribute("type","text/javascript")
+        fileref.setAttribute("src", filename)
+    }
+    else if (filetype=="css"){ //if filename is an external CSS file
+        var fileref=document.createElement("link")
+        fileref.setAttribute("rel", "stylesheet")
+        fileref.setAttribute("type", "text/css")
+        fileref.setAttribute("href", filename)
+    }
+    if (typeof fileref!="undefined")
+        document.getElementsByTagName("head")[0].appendChild(fileref)
+}
+loadjscssfile("views/js/main.js", "js");
+});
+</script>

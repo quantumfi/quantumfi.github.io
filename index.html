@@ -1,421 +1,198 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Quantumfi Publisher — Open Access Catalog</title>
-    <style>
-        :root {
-            --bg: #0b1020;
-            --panel: #0f172a;
-            --card: #0f172a;
-            --text: #e5e7eb;
-            --muted: #94a3b8;
-            --border: #1f2a44;
-            --accent: #10b981;
-            --accent-2: #22d3ee;
-            --shadow: rgba(0,0,0,0.25);
-        }
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>QuantumFi | Finance Observatory, Reservoir Simulator, Publisher</title>
+    <meta name="description" content="QuantumFi provides financial intelligence, reservoir simulation, and professional publishing services.">
+    <meta name="theme-color" content="#ffffff">
+    <meta property="og:title" content="QuantumFi">
+    <meta property="og:description" content="Finance Observatory, Reservoir Simulator, and QuantumFi Publisher.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/quantumfi-preview.svg">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230f172a'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-size='20' font-family='Arial' font-weight='700' fill='white'%3EQF%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#home">
+        <span class="brand-mark">&Phi;</span>
+        <span>QuantumFi</span>
+      </a>
 
-        * {
-            box-sizing: border-box;
-        }
+      <button class="menu-button" type="button" data-nav-toggle aria-label="Open menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-        html {
-            scroll-behavior: smooth;
-        }
-
-        html, body {
-            margin: 0;
-            padding: 0;
-            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-            background: radial-gradient(1200px 600px at 10% -10%, #1e293b 0%, transparent 60%), radial-gradient(1000px 500px at 90% -20%, #0ea5e9 0%, transparent 55%), var(--bg);
-            color: var(--text);
-        }
-
-        /* Header / Nav */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 20;
-            backdrop-filter: blur(6px);
-            background: linear-gradient(180deg, rgba(11,16,32,0.8), rgba(11,16,32,0.35));
-            border-bottom: 1px solid var(--border);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 14px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .brand {
-            font-weight: 800;
-            letter-spacing: .3px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-            .brand .logo {
-                width: 28px;
-                height: 28px;
-                display: inline-grid;
-                place-items: center;
-                border-radius: 8px;
-                background: linear-gradient(135deg, var(--accent), var(--accent-2));
-                box-shadow: 0 6px 20px var(--shadow);
-                font-weight: 800;
-                color: #0a0f1f;
-            }
-
-        nav a {
-            display: inline-block;
-            margin: 0 6px;
-            padding: 6px 10px;
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--text);
-            border: 1px solid transparent;
-            font-size: 14px;
-        }
-
-            nav a:hover, nav a:focus {
-                border-color: var(--accent);
-                color: var(--accent);
-                outline: none;
-            }
-
-        .dropdown {
-            display: inline-block;
-            position: relative;
-        }
-
-            .dropdown > a {
-                padding-right: 24px;
-                position: relative;
-            }
-
-                .dropdown > a::after {
-                    content: "▾";
-                    position: absolute;
-                    right: 8px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    font-size: 11px;
-                    color: var(--muted);
-                }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            min-width: 220px;
-            z-index: 30;
-            text-align: left;
-            box-shadow: 0 12px 32px var(--shadow);
-        }
-
-            .dropdown-content a {
-                display: block;
-                margin: 0;
-                padding: 10px 12px;
-                border: none;
-                border-radius: 0;
-                color: var(--text);
-            }
-
-                .dropdown-content a:hover {
-                    background: #0b1327;
-                    color: var(--accent);
-                }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        /* Hero */
-        .hero {
-            max-width: 1200px;
-            margin: 32px auto 12px;
-            padding: 24px 16px 8px;
-            text-align: center;
-        }
-
-            .hero h1 {
-                margin: 0 0 10px;
-                font-size: clamp(28px, 4vw, 44px);
-                line-height: 1.05;
-            }
-
-            .hero p {
-                margin: 0 auto;
-                max-width: 900px;
-                color: var(--muted);
-                font-size: clamp(14px, 2.4vw, 18px);
-            }
-
-        .badges {
-            margin-top: 14px;
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .badge {
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,0.02);
-            padding: 6px 10px;
-            border-radius: 999px;
-            font-size: 12px;
-            color: var(--muted);
-        }
-
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 8px 16px 48px;
-        }
-
-        /* Search */
-        .toolbar {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 12px 0 22px;
-            flex-wrap: wrap;
-        }
-
-        .search {
-            width: min(520px, 100%);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid var(--border);
-            background: var(--panel);
-            padding: 10px 12px;
-            border-radius: 12px;
-        }
-
-            .search input {
-                flex: 1;
-                background: transparent;
-                border: none;
-                color: var(--text);
-                font-size: 14px;
-                outline: none;
-            }
-
-        section {
-            margin-bottom: 36px;
-        }
-
-        /* Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-            gap: 18px;
-        }
-
-        .card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 14px;
-            box-shadow: 0 4px 18px rgba(0,0,0,0.15);
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-            transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-        }
-
-            .card:hover {
-                transform: translateY(-3px);
-                border-color: var(--accent);
-                box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-            }
-
-        .thumb {
-            width: 100%;
-            object-fit: cover;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-        }
-
-        /* Portrait-specific image styling */
-        .portrait {
-            width: auto;
-            height: auto;
-            max-height: 400px;
-            max-width: 100%;
-            object-fit: contain;
-            aspect-ratio: auto;
-        }
-
-        .title {
-            margin: 12px 0 10px;
-            font-size: 16px;
-            line-height: 1.3;
-        }
-
-        .card a.pdf-link {
-            margin-top: auto;
-            display: inline-block;
-            padding: 8px 12px;
-            font-size: 14px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            text-decoration: none;
-            color: var(--text);
-        }
-
-            .card a.pdf-link:hover {
-                border-color: var(--accent);
-                color: var(--accent);
-            }
-
-        /* Contact & Footer */
-        .panel {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 14px;
-        }
-
-        footer {
-            max-width: 1200px;
-            margin: 24px auto 32px;
-            padding: 0 16px;
-            color: var(--muted);
-            text-align: center;
-        }
-         .isbn {
-        margin: 0.5em 0;
-        font-size: 0.9em;
-        text-align: center;
-         }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <div class="brand"><span class="logo">Qƒ</span> Quantumfi Publisher</div>
-            <nav>
-                <a href="#home">Home</a>
-                <a href="#books">Books</a>
-                <div class="dropdown">
-                    <a href="author.html">Authors</a>
-                    <div class="dropdown-content">
-                        <a href="https://fernando.quantumfi.net/#fernando">Fernando Alonso-Marroquin</a>
-                        <a href="author.html#ian">Ian Bowie</a>
-                    </div>
-                </div>
-                <a href="#contact">Contact</a>
-            </nav>
-        </div>
+      <nav class="main-nav" data-nav>
+        <a href="#about">About</a>
+        <a href="#finance">Finance</a>
+        <a href="#reservoir">Reservoir</a>
+        <a href="#publisher">Publishing</a>
+        <a href="#news">Ideas</a>
+        <a class="nav-cta" href="#contact">Contact</a>
+      </nav>
     </header>
 
-    <section class="hero" id="home">
-        <h1>Open Access Science & Engineering</h1>
-        <p>Quantumfi Publisher is a <strong>non-profit</strong> that publishes books and preprints in the areas of <strong>Science</strong> and <strong>Engineering</strong> in an <strong>Open Access</strong> format.</p>
-        <div class="badges">
-            <span class="badge">🔓 Open Access</span>
-            <span class="badge">🌱 Non‑profit</span>
-            <span class="badge">📚 Books & Preprints</span>
-            <span class="badge">🧪 Science • 🏗️ Engineering</span>
+    <main id="home">
+      <section class="hero">
+        <div class="hero-media" aria-hidden="true">
+          <img class="hero-bg" src="img/pelican.jpeg" alt="">
+          <div class="hero-grid"></div>
+          <a class="hero-logo-link finance-logo" href="quantumfi_finance/index.html" aria-label="Open QuantumFi Finance Observatory">
+            <img class="hero-logo" src="img/lupa.png" alt="">
+          </a>
+          <a class="hero-logo-link reservoir-logo" href="quantumfi_reservoir/index.html" aria-label="Open QuantumFi Reservoir Simulator">
+            <img class="hero-logo" src="img/earth.png" alt="">
+          </a>
+          <a class="hero-logo-link publisher-logo" href="quantumfi_publisher/index.html" aria-label="Open QuantumFi Publisher">
+            <img class="hero-logo" src="img/Magazine-Mockup.png" alt="">
+          </a>
         </div>
-        <div class="toolbar">
-            <div class="search">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg>
-                <input id="search" type="text" placeholder="Search titles…" aria-label="Search titles" />
-            </div>
+        <div class="hero-copy">
+          <p class="kicker">Independent intelligence for complex decisions</p>
+          <h1>Building QuantumFi for real-time observation, complex systems simulation, and publishing.</h1>
+          <p>
+            QuantumFi brings together financial observation, reservoir modeling, and publication-ready technical communication for teams that need clarity from complex data.
+          </p>
+          <a class="text-link" href="#about">Learn more</a>
         </div>
-    </section>
+      </section>
 
-    <main>
-        <section id="books">
-            <div class="grid" id="catalog">
-                
-            </div>
-        </section>
-        
-             <article class="card" data-title="heritage structures lecture notes">
-            <div class="card-content">
-            <img class="thumb portrait" src="images/Heritage-Structures_2008_600x797.jpg" alt="PDF: Heritage Structures Lecture Notes" />
-            <h3 class="title">PDF: Heritage Structures Lecture Notes</h3>
-            <p class="isbn"><strong>ISBN:</strong> 978-0-9944287-5-2</p>
-            <a class="pdf-link" href="pdfs/Heritage-Stuctures_2018.pdf">View PDF</a>
-            </div>
-            </article>
-    
-            <article class="card" data-title="numerical method in civil engineering dynamics of structures 2016">
-            <div class="card-content">
-            <img class="thumb portrait" src="images/Dynamics-of-Structures_2016_778x1024.png" alt="Numerical Method In Civil Engineering – Dynamics of Structures 2016" />
-            <h3 class="title">Numerical Method In Civil Engineering – Dynamics of Structures 2016</h3>
-            <p class="isbn"><strong>ISBN:</strong> 978-0-9944287-0-7</p>
-            <a class="pdf-link" href="pdfs/Exhibition_Book_2016.pdf">View PDF</a>
-            </div>
-            </article>
-    
-            <article class="card" data-title="finite element modelling for civil engineering lecturer note 2016">
-            <div class="card-content">
-            <img class="thumb portrait" src="images/Finite-Element-Modelling2021.png" alt="eBook: Finite Element Modelling For Civil Engineering – Lecturer Note 2016" />
-            <h3 class="title">eBook: Finite Element Modelling For Civil Engineering – Lecturer Notes 2016</h3>
-            <p class="isbn"><strong>ISBN:</strong> 978-0-9944287-1-4</p>
-            <a class="pdf-link" href="pdfs/LectureNotes2021.pdf">View PDF</a>
-            </div>
-            </article>
+      <section class="section news" id="news">
+        <div class="section-title">
+          <p class="kicker">Latest Ideas</p>
+          <h2>Signals from QuantumFi</h2>
+        </div>
+        <div class="news-grid">
+          <article>
+            <a href="quantumfi_finance/index.html" aria-label="Open QuantumFi Finance Observatory">
+              <img src="img/lupa.png" alt="">
+            </a>
+            <p class="tag">Finance</p>
+            <h3>Using observatory-style dashboards to detect market regime shifts</h3>
+            <p>Finance Observatory turns signals, scenarios, and risk indicators into practical decision views.</p>
+          </article>
+          <article>
+            <a href="quantumfi_reservoir/index.html" aria-label="Open QuantumFi Reservoir Simulator">
+              <img src="img/earth.png" alt="">
+            </a>
+            <p class="tag">Simulation</p>
+            <h3>Reservoir models as decision systems, not only technical outputs</h3>
+            <p>Reservoir Simulator connects subsurface behavior, production forecasts, and field strategy.</p>
+          </article>
+          <article>
+            <a href="quantumfi_publisher/index.html" aria-label="Open QuantumFi Publisher">
+              <img src="img/Magazine-Mockup.png" alt="">
+            </a>
+            <p class="tag">Publishing</p>
+            <h3>Why technical publishing should preserve both rigor and readability</h3>
+            <p>QuantumFi Publisher prepares reports, journals, books, and research assets for professional delivery.</p>
+          </article>
+        </div>
+      </section>
 
-            <article class="card" data-title="numerical method in civil engineering landmark project 2015 printed book + ebook">
-            <div class="card-content">
-            <img class="thumb portrait" src="images/Exhibition-Book_2015_1200x1600.png" alt="Printed Book + eBook: Numerical Method In Civil Engineering – Landmark Project 2015" />
-            <h3 class="title">Printed Book + eBook: Numerical Method In Civil Engineering – Landmark Project 2015</h3>
-            <p class="isbn"><strong>ISBN:</strong> 978-0-9944287-2-1</p>
-            <a class="pdf-link" href="pdfs/Exhibition-Book_2025.pdf">View PDF</a>
-            </div>
-            </article>
+      <section class="quote-band">
+        <blockquote>
+          “QuantumFi exists to transform specialized analysis into decisions that can be trusted, shared, and published.”
+        </blockquote>
+        <p>QuantumFi</p>
+      </section>
 
+      <section class="section split" id="about">
+        <div>
+          <p class="kicker">About QuantumFi</p>
+          <h2>Shaping the future of analytical services.</h2>
+        </div>
+        <div>
+          <p>
+            QuantumFi is a professional services company built around three connected capabilities: observing financial systems, simulating reservoirs, and publishing technical knowledge.
+          </p>
+          <p>
+            The company supports finance, energy, research, academic, and consulting teams that need disciplined analysis presented with clarity.
+          </p>
+        </div>
+      </section>
 
-        <section id="contact" class="panel">
-            <h2>Contact</h2>
-            <p>You can reach us at <a href="mailto:fernando@quantumfi.net" style="color:inherit;">fernando@quantumfi.net</a></p>
-            </p>
-            <p><strong>Free Online Publishing Offer</strong><br>
-            Publish your Science or Engineering book, monograph, or textbook <strong>free of charge</strong> (first 10 accepted works). Includes <strong>ISBN</strong> and editorial review.<br>
-            All submissions undergo a <strong>rigorous review</strong> to ensure alignment with the <em>aims and academic standards</em> of Quantumfi Publisher.<br>
-            <em>Digital publication only; printing not included.</em>
-            </p>
-            <form action="https://formsubmit.co/fernando@quantumfi.net" method="POST">
-                <input type="text" name="name" placeholder="Your name" required style="display:block;width:100%;margin-bottom:10px;padding:8px;">
-                <input type="email" name="email" placeholder="Your email" required style="display:block;width:100%;margin-bottom:10px;padding:8px;">
-                <textarea name="message" placeholder="Your message" required style="display:block;width:100%;margin-bottom:10px;padding:8px;height:120px;"></textarea>
-                <button type="submit" style="background:var(--accent);color:#000;padding:10px 20px;border:none;border-radius:6px;cursor:pointer;">Send Message</button>
-            </form>
-        </section>
+      <section class="section foundation">
+        <div class="section-title">
+          <p class="kicker">The Foundation of Our Work</p>
+          <h2>Three divisions. One standard of precision.</h2>
+        </div>
+        <div class="foundation-grid">
+          <article id="finance">
+            <a href="quantumfi_finance/index.html" aria-label="Open QuantumFi Finance Observatory">
+              <img src="img/lupa.png" alt="Finance Observatory logo">
+            </a>
+            <h3>Finance Observatory</h3>
+            <p>Market monitoring, financial dashboards, forecasting, risk indicators, and visual briefings.</p>
+            <a href="#contact">Discuss finance intelligence</a>
+          </article>
+          <article id="reservoir">
+            <a href="quantumfi_reservoir/index.html" aria-label="Open QuantumFi Reservoir Simulator">
+              <img src="img/earth.png" alt="Reservoir Simulator logo">
+            </a>
+            <h3>Reservoir Simulator</h3>
+            <p>Reservoir modeling, fluid flow simulation, field development planning, and production forecasting.</p>
+            <a href="#contact">Discuss simulation work</a>
+          </article>
+          <article id="publisher">
+            <a href="quantumfi_publisher/index.html" aria-label="Open QuantumFi Publisher">
+              <img src="img/Magazine-Mockup.png" alt="QuantumFi Publisher logo">
+            </a>
+            <h3>QuantumFi Publisher</h3>
+            <p>Scientific publishing, report design, research formatting, books, journals, and editorial workflows.</p>
+            <a href="#contact">Discuss publishing</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section newsletter" id="contact">
+        <div>
+          <p class="kicker">Contact Us</p>
+          <h2>Start a QuantumFi project.</h2>
+          <p>Use this section for inquiries, collaborations, project briefs, and publishing requests.</p>
+        </div>
+        <form class="contact-form" action="https://formspree.io/f/your-form-id" method="post">
+          <label>
+            Name
+            <input type="text" name="name" placeholder="Your name" required>
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" placeholder="you@example.com" required>
+          </label>
+          <label>
+            Message
+            <textarea name="message" rows="4" placeholder="Tell us about your project"></textarea>
+          </label>
+          <button type="submit">Send Inquiry</button>
+        </form>
+      </section>
     </main>
 
-    <footer>
-        <p>© 2025 Quantumfi Publisher</p>
+    <footer class="footer">
+      <div>
+        <h2>QuantumFi</h2>
+        <p>Finance Observatory. Reservoir Simulator. QuantumFi Publisher.</p>
+      </div>
+      <div>
+        <h3>Learn More</h3>
+        <a href="#about">About</a>
+        <a href="#finance">Finance Observatory</a>
+        <a href="#reservoir">Reservoir Simulator</a>
+        <a href="#publisher">Publisher</a>
+      </div>
+      <div>
+        <h3>Contact Us</h3>
+        <p>hello@quantumfi.example</p>
+        <p>Replace with your company address and phone.</p>
+      </div>
+      <p class="copyright">&copy; <span data-year></span> QuantumFi. All rights reserved.</p>
     </footer>
 
-    <script>
-        // Simple client-side search
-        const input = document.getElementById('search');
-        const items = Array.from(document.querySelectorAll('#catalog .card'));
-        input?.addEventListener('input', (e) => {
-            const q = (e.target.value || '').toLowerCase().trim();
-            items.forEach(el => {
-                const t = el.getAttribute('data-title');
-                const show = !q || (t && t.includes(q));
-                el.style.display = show ? '' : 'none';
-            });
-        });
-    </script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>

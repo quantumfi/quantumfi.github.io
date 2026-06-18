@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 420" role="img" aria-labelledby="title desc">
+  <title id="title">Reservoir Simulator</title>
+  <desc id="desc">A globe with a simulation injection tool.</desc>
+  <rect width="420" height="420" fill="#ffffff"/>
+  <g transform="translate(42 48)">
+    <circle cx="168" cy="168" r="134" fill="#5fb9e6" stroke="#287294" stroke-width="5"/>
+    <path d="M86 42 C112 20 157 22 188 47 C153 49 140 70 122 89 C103 109 78 91 86 42Z" fill="#41a65c" stroke="#24794e" stroke-width="3"/>
+    <path d="M56 107 C87 92 116 104 133 130 C117 158 89 160 66 144 C51 133 45 119 56 107Z" fill="#41a65c" stroke="#24794e" stroke-width="3"/>
+    <path d="M184 165 C225 146 269 164 285 202 C257 223 215 221 192 199 C180 188 177 175 184 165Z" fill="#41a65c" stroke="#24794e" stroke-width="3"/>
+    <path d="M120 278 C161 266 210 273 244 298 C198 320 151 316 120 278Z" fill="#41a65c" stroke="#24794e" stroke-width="3"/>
+    <path d="M40 139 C111 118 207 116 296 142" fill="none" stroke="#ffffff" stroke-width="2" opacity=".45"/>
+    <path d="M36 206 C112 224 209 224 302 202" fill="none" stroke="#ffffff" stroke-width="2" opacity=".45"/>
+    <g transform="translate(220 72) rotate(46)">
+      <rect x="0" y="76" width="148" height="22" fill="#ffffff" stroke="#69747b" stroke-width="4"/>
+      <rect x="112" y="54" width="22" height="64" fill="#f4f6f7" stroke="#69747b" stroke-width="4"/>
+      <path d="M146 65 L185 65 L185 109 L146 109" fill="#ffffff" stroke="#69747b" stroke-width="4"/>
+      <line x1="20" y1="76" x2="20" y2="98" stroke="#2f6fa3" stroke-width="5"/>
+      <line x1="42" y1="76" x2="42" y2="98" stroke="#2f6fa3" stroke-width="5"/>
+    </g>
+  </g>
+</svg>

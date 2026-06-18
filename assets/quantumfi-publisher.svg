@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 420" role="img" aria-labelledby="title desc">
+  <title id="title">QuantumFi Publisher</title>
+  <desc id="desc">An open professional report and publishing layout.</desc>
+  <rect width="420" height="420" fill="#ffffff"/>
+  <ellipse cx="214" cy="318" rx="150" ry="48" fill="#cabaa8" opacity=".75"/>
+  <g transform="translate(63 82)">
+    <path d="M16 35 C73 5 123 17 154 48 L154 268 C112 236 62 231 16 260Z" fill="#ffffff" stroke="#d8dfe3" stroke-width="3"/>
+    <path d="M154 48 C194 18 247 8 302 34 L302 259 C252 231 199 235 154 268Z" fill="#ffffff" stroke="#d8dfe3" stroke-width="3"/>
+    <path d="M154 48 L154 268" stroke="#cbd6db" stroke-width="3"/>
+    <rect x="42" y="82" width="68" height="7" rx="3.5" fill="#253747"/>
+    <rect x="42" y="104" width="88" height="5" rx="2.5" fill="#c5d0d6"/>
+    <rect x="42" y="119" width="74" height="5" rx="2.5" fill="#c5d0d6"/>
+    <rect x="42" y="134" width="82" height="5" rx="2.5" fill="#c5d0d6"/>
+    <rect x="190" y="68" width="82" height="15" rx="4" fill="#29b7ad"/>
+    <rect x="190" y="96" width="74" height="6" rx="3" fill="#c5d0d6"/>
+    <rect x="190" y="111" width="88" height="6" rx="3" fill="#c5d0d6"/>
+    <rect x="190" y="128" width="35" height="62" rx="4" fill="#f4bf45"/>
+    <rect x="235" y="148" width="35" height="42" rx="4" fill="#2f6fa3"/>
+    <circle cx="243" cy="220" r="23" fill="#253747"/>
+    <path d="M233 220 L241 228 L256 211" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

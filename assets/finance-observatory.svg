@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 420" role="img" aria-labelledby="title desc">
+  <title id="title">Finance Observatory</title>
+  <desc id="desc">A magnifying glass inspecting a financial chart.</desc>
+  <rect width="420" height="420" fill="#ffffff"/>
+  <g transform="translate(52 42)">
+    <circle cx="154" cy="154" r="122" fill="#ffffff" stroke="#17191c" stroke-width="18"/>
+    <path d="M60 195 C93 103 127 226 160 134 S238 60 308 116" fill="none" stroke="#f8d767" stroke-width="30" stroke-linecap="round" opacity=".55"/>
+    <path d="M59 110 C83 100 99 132 119 122 139 112 139 209 163 204 187 199 182 162 207 166 231 170 230 143 253 148 276 153 282 133 302 136" fill="none" stroke="#253747" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M248 250 L348 350" stroke="#17191c" stroke-width="25" stroke-linecap="round"/>
+    <path d="M267 269 L355 357" stroke="#4f565b" stroke-width="10" stroke-linecap="round"/>
+  </g>
+</svg>

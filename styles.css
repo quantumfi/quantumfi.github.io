@@ -112,7 +112,7 @@ img {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.9) 45%, rgba(255, 255, 255, 0.7) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.18) 55%, rgba(255, 255, 255, 0.86) 100%),
     #ffffff;
 }
 
@@ -122,9 +122,10 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.34;
-  transform: scale(1.08);
-  animation: heroDrift 22s ease-in-out infinite alternate;
+  object-position: center center;
+  opacity: 0.95;
+  transform: scale(1.06);
+  animation: heroDrift 18s ease-in-out infinite alternate;
 }
 
 .hero-grid {
@@ -162,8 +163,8 @@ img {
 
 .hero-copy {
   position: relative;
-  max-width: 760px;
-  padding: 0 42px 72px;
+  max-width: 520px;
+  padding: 0 42px 42px;
 }
 
 .kicker {
@@ -183,9 +184,9 @@ p {
 }
 
 h1 {
-  margin-bottom: 22px;
-  font-size: clamp(44px, 7vw, 84px);
-  line-height: 0.98;
+  margin-bottom: 14px;
+  font-size: clamp(34px, 4.5vw, 54px);
+  line-height: 1;
   letter-spacing: 0;
 }
 
@@ -203,9 +204,9 @@ h3 {
 }
 
 .hero-copy p {
-  max-width: 620px;
+  max-width: 460px;
   color: #394150;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .text-link {
@@ -429,32 +430,26 @@ h3 {
   }
 
   .hero {
-    min-height: 680px;
+    min-height: 620px;
   }
 
-  .hero-logo,
-  .hero-logo-link {
-    width: 120px;
+  .hero-media {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.1) 58%, rgba(255, 255, 255, 0.9) 100%),
+      #ffffff;
   }
 
-  .finance-logo {
-    top: 78px;
-    right: 32px;
-  }
-
-  .reservoir-logo {
-    top: 216px;
-    right: 32px;
-  }
-
-  .publisher-logo {
-    top: 354px;
-    right: 32px;
-    bottom: auto;
+  .hero-bg {
+    object-position: center center;
   }
 
   .hero-copy {
-    padding: 0 20px 48px;
+    max-width: 420px;
+    padding: 0 20px 28px;
+  }
+
+  .hero-copy p {
+    font-size: 15px;
   }
 
   .section {
@@ -477,39 +472,46 @@ h3 {
 
 @media (max-width: 560px) {
   .hero {
-    min-height: 700px;
+    min-height: 600px;
   }
 
-  .hero-logo,
-  .hero-logo-link {
-    width: 96px;
-  }
-
-  .finance-logo {
-    right: 18px;
-  }
-
-  .reservoir-logo {
-    top: 190px;
-    right: 18px;
-  }
-
-  .publisher-logo {
-    top: 302px;
-    right: 18px;
+  .hero-bg {
+    object-position: center center;
+    opacity: 0.95;
   }
 
   h1 {
-    font-size: 42px;
+    font-size: 30px;
+  }
+
+  .hero-copy {
+    max-width: 310px;
+    padding: 0 16px 18px;
+  }
+
+  .hero-copy .kicker {
+    margin-bottom: 8px;
+    font-size: 11px;
+  }
+
+  .hero-copy p {
+    margin-bottom: 0;
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .hero-copy .text-link {
+    margin-top: 8px;
+    font-size: 13px;
   }
 }
 
 @keyframes heroDrift {
   from {
-    transform: scale(1.08) translate3d(2%, -1%, 0);
+    transform: scale(1.06) translate3d(2.5%, 0, 0);
   }
 
   to {
-    transform: scale(1.16) translate3d(-3%, 1.5%, 0);
+    transform: scale(1.06) translate3d(-2.5%, 0, 0);
   }
 }
